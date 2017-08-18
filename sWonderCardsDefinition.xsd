@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="cardDefinition" type="cardDefinitionType"
+		minOccurs="1" maxOccurs="1" />
+
+	<xs:complexType name="cardDefinitionType">
+		<xs:sequence minOccurs="1" maxOccurs="1">
+			<xs:element name="ageI" type="ageType" />
+			<xs:element name="ageII" type="ageType" />
+			<xs:element name="ageIII" type="ageType" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ageType">
+		<xs:sequence>
+			<xs:element name="card" type="abstractCardType" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="abstractCardType">
+		<xs:sequence minOccurs="1" maxOccurs="1">
+			<element name="id" type="xs:integer" />
+			<element name="idCardType" type="xs:integer" />
+			<element name="label" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="brownCardType">
+		<xs:complexContent>
+			<xs:extension base="abstractCardType">
+				<element name="cost" type="brownCostType" />
+			</xs:extension>
+		</xs:complexContent>
+		<xs:sequence minOccurs="1" maxOccurs="1">
+			<element name="id" type="xs:integer" />
+			<element name="idCardType" type="xs:integer" />
+			<element name="label" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="cardColorType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="brown" />
+			<xs:enumeration value="gray" />
+			<xs:enumeration value="green" />
+			<xs:enumeration value="blue" />
+			<xs:enumeration value="red" />
+			<xs:enumeration value="yellow" />
+			<xs:enumeration value="purple" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="brownColorType">
+		<xs:restriction base="cardColorType">
+			<xs:enumeration value="brown" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="abstractCostType">
+		<xs:sequence minOccurs="1" maxOccurs="1">
+			<xs:element name="gold" type="xs:integer" minOccurs="0"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="brownCostType">
+		<xs:complexContent>
+			<xs:extension base="abstractCostType">
+				<xs:sequence>
+					<xs:element name="brownResource" type="brownResourceType"
+						minOccurs="0" maxOccurs="1" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:simpleType name="brownResourceType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="clay" />
+			<xs:enumeration value="ore" />
+			<xs:enumeration value="stone" />
+			<xs:enumeration value="wood" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="grayResourceType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="cloth" />
+			<xs:enumeration value="glass" />
+			<xs:enumeration value="papyrus" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="greenResourceType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="gear" />
+			<xs:enumeration value="stele" />
+			<xs:enumeration value="compass" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
